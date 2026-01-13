@@ -1,0 +1,57 @@
+.header-with-sidebar {
+    width: calc(100% - 250px);
+    left: 250px;
+    transition: all 0.3s ease;
+}
+
+.header-full {
+    width: calc(100% - 80px) !important;
+    left: 80px;
+    transition: all 0.3s ease;
+}
+
+.header-sec {
+    background-color: #ffffff1a;
+    border-bottom: 1px solid #fff3;
+    z-index: 999;
+}
+
+.sidebar {
+    background: #ffffff1a;
+    border-right: 1px solid #fff3 !important;
+    color: #fff;
+}
+
+.nav-link:hover {
+    background-color:
+        color-mix(in oklab, #fff 5%, transparent);
+}
+
+.nav-link {
+    margin: 2px 5px;
+    border-radius: 5px;
+}
+
+.bg-new {
+    background-color: #ffffff5e
+}
+
+.profile-dropdown {
+    width: 250px !important;
+}
+.user-name-text{
+    background: #413f76;
+    position: fixed;
+    top: 0;
+    border: 1px solid #526778;
+    width: 250px;
+}
+.uname-text{
+    width:80px;
+}
+
+/* width */
+aside::-webkit-scrollbar {
+  width: 0px;
+}
+
