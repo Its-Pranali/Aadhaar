@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 13, 2026 at 01:33 PM
+-- Generation Time: Jan 14, 2026 at 07:25 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -133,6 +133,31 @@ CREATE TABLE `c_d_p_o_s` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `districts`
+--
+
+CREATE TABLE `districts` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `district` varchar(255) NOT NULL,
+  `status` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `districts`
+--
+
+INSERT INTO `districts` (`id`, `district`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'Kolhapur', '1', '2026-01-14 05:26:07', '2026-01-14 05:26:07'),
+(2, 'Sangli', '1', '2026-01-14 05:42:19', '2026-01-14 05:42:19'),
+(3, 'Satara', '1', '2026-01-14 05:45:21', '2026-01-14 05:45:21'),
+(4, 'Pune', '1', '2026-01-14 05:46:53', '2026-01-14 05:46:53'),
+(5, 'Solapur', '1', '2026-01-14 10:00:06', '2026-01-14 10:00:06');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `failed_jobs`
 --
 
@@ -204,7 +229,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (4, '0001_01_01_000001_create_cache_table', 3),
 (5, '0001_01_01_000002_create_jobs_table', 3),
 (6, '2026_01_13_061420_create_c_d_p_o_s_table', 3),
-(7, '2026_01_13_113726_update_cdpo_table', 4);
+(7, '2026_01_13_113726_update_cdpo_table', 4),
+(8, '2026_01_13_181314_create_districts_table', 5);
 
 -- --------------------------------------------------------
 
@@ -287,6 +313,12 @@ ALTER TABLE `c_d_p_o_s`
   ADD UNIQUE KEY `c_d_p_o_s_cdpo_email_unique` (`cdpo_email`);
 
 --
+-- Indexes for table `districts`
+--
+ALTER TABLE `districts`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
@@ -356,6 +388,12 @@ ALTER TABLE `c_d_p_o_s`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `districts`
+--
+ALTER TABLE `districts`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
@@ -371,7 +409,7 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `users`
