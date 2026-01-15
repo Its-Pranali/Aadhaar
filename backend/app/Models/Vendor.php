@@ -11,6 +11,6 @@ class Vendor extends Model
         'vender_mobile',
         'vender_email',
         'vender_address',
-        'vender_status',
+        'status',
     ];
 }
