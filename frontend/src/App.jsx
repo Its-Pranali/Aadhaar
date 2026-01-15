@@ -13,6 +13,8 @@ import WCDPDashboard from './components/dashboard/WCDPDashboard';
 import CDPODetails from './components/master data/CDPODetails';
 import SESDashboard from './components/dashboard/SESDashboard';
 import District from './components/master data/District';
+import Taluka from './components/master data/Taluka';
+import Vendor from './components/master data/Vendor';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -29,6 +31,8 @@ function App() {
           <Route path="/cdpo-details" element={<CDPODetails />} />
           <Route path="/ses-dashboard" element={<SESDashboard />} />
           <Route path="/district" element={<District />} />
+          <Route path="/taluka" element={<Taluka />} />
+          <Route path="/vendor" element={<Vendor />} />
         </Routes>
       </BrowserRouter>
     </>

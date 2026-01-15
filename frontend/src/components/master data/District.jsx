@@ -2,10 +2,14 @@ import { useState, useEffect } from "react";
 import Main from "../layouts/Main";
 import axios from 'axios';
 import { FaTrash, FaEdit } from "react-icons/fa";
+import $ from "jquery";
+import "datatables.net-bs5";
+import "datatables.net-bs5/css/dataTables.bootstrap5.min.css";
 
 function District() {
     const [isCollapsed, setIsCollapsed] = useState(false);
     const toggleSidebar = () => setIsCollapsed((prev) => !prev);
+    
     const [showModal, setShowModal] = useState(false);
     const [errors, setErrors] = useState({});
     const [isEdit, setIsEdit] = useState(false);
@@ -18,6 +22,31 @@ function District() {
     useEffect(() => {
         fetchDistrict();
     }, []);
+
+    useEffect(() => {
+        if (districts.length > 0) {
+            // Destroy existing DataTable (important)
+            if ($.fn.DataTable.isDataTable("#districtTable")) {
+                $("#districtTable").DataTable().destroy();
+            }
+            // Re-initialize
+            $("#districtTable").DataTable({
+                order: [[1, "asc"]],
+                pageLength: 10,
+                lengthChange: true,
+                searching: true,
+                ordering: true,
+                destroy: true,
+                drawCallback: function () {
+                    const api = this.api();
+                    api.column(0, { page: "current" }).nodes().each((cell, i) => {
+                        cell.innerHTML = i + 1;
+                    });
+                }
+            });
+        }
+    }, [districts]);
+
 
     const validator = () => {
         const newErrors = {};
@@ -68,7 +97,6 @@ function District() {
         catch (error) {
             console.error("Error while saving/updating district", error);
         }
-
     }
 
     const fetchDistrict = async () => {
@@ -78,6 +106,21 @@ function District() {
         }
         catch (error) {
             console.error("Error while fetching district");
+        }
+    }
+
+    const handleDelete = async (id) => {
+        const confirmMsg = window.confirm("Are you sure you want to delete District?");
+        if (!confirmMsg) {
+            return;
+        }
+        try {
+            await axios.delete(`http://127.0.0.1:8000/api/district/${id}`);
+            alert("District deleted successfully");
+            fetchDistrict();
+        }
+        catch (errors) {
+            console.errors("Error while deleting district", errors);
         }
     }
 
@@ -111,7 +154,7 @@ function District() {
                 <div className="col-md-12">
                     <div className="content-card py-2">
                         <div className="table-responsive">
-                            <table className="custom-table">
+                            <table className="custom-table" id="districtTable">
                                 <thead>
                                     <tr>
                                         <th>Sr.No</th>
@@ -123,12 +166,12 @@ function District() {
                                 <tbody>
                                     {districts.map((dist, index) => (
                                         <tr key={index}>
-                                            <td>{dist.id}</td>
+                                            <td></td>
                                             <td>{dist.district}</td>
                                             <td>{dist.status == 1 ? "Active" : "Inactive"}</td>
                                             <td className="d-flex gap-1">
                                                 <button className="btn btn-sm btn-primary" type="button" onClick={() => handleEdit(dist)}><FaEdit /></button>
-                                                <button className="btn btn-sm btn-danger" type="submit"><FaTrash /></button>
+                                                <button className="btn btn-sm btn-danger" type="submit" onClick={() => handleDelete(dist.id)}><FaTrash /></button>
                                             </td>
                                         </tr>
                                     ))}
@@ -172,7 +215,7 @@ function District() {
                                     </div>
                                 </div>
                                 <div className="modal-footer">
-                                    <button className="btn btn-muted btn-sm border" type="button" onClick={()=>setShowModal(false)}>Cancel</button>
+                                    <button className="btn btn-muted btn-sm border" type="button" onClick={() => setShowModal(false)}>Cancel</button>
                                     <button className="btn btn-primary btn-sm" type="submit">{isEdit ? "Update" : "Save"}</button>
                                 </div>
                             </form>
